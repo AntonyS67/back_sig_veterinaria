@@ -6,6 +6,7 @@ using SIG_VETERINARIA.DTOs.User;
 namespace SIG_VETERINARIA.API.Controllers
 {
     [ApiController]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private IUserApplication _userApplication;
@@ -15,13 +16,13 @@ namespace SIG_VETERINARIA.API.Controllers
             _userApplication = userApplication;
         }
 
-        [HttpGet]
-        [Route("List")]
-        public async Task<ActionResult> GetAll()
+        [HttpPost]
+        [Route("list")]
+        public async Task<ActionResult> GetAll([FromBody] UserListRequestDto request)
         {
             try
             {
-                var res = await _userApplication.GetAll();
+                var res = await _userApplication.GetAll(request);
                 return Ok(res);
             }
             catch (Exception ex)
@@ -31,7 +32,7 @@ namespace SIG_VETERINARIA.API.Controllers
         }
 
         [HttpPost]
-        [Route("Create")]
+        [Route("create")]
         public async Task<ActionResult> Create(UserCreateRequestDto request)
         {
             try
@@ -46,7 +47,7 @@ namespace SIG_VETERINARIA.API.Controllers
         }
 
         [HttpDelete]
-        [Route("Delete")]
+        [Route("delete")]
         public async Task<ActionResult> Delete(DeleteDto request)
         {
             try

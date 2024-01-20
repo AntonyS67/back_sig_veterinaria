@@ -25,9 +25,9 @@ namespace SIG_VETERINARIA.Application.User
             return await _userService.Delete(request);
         }
 
-        public async Task<ResultDto<UserListResponseDTO>> GetAll()
+        public async Task<ResultDto<UserListResponseDTO>> GetAll(UserListRequestDto request)
         {
-            return await _userService.GetAll();
+            return await _userService.GetAll(request);
         }
 
         public async Task<AuthResponseDto> Login(LoginRequestDto request)

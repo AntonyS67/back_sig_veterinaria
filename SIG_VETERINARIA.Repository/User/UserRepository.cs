@@ -84,19 +84,24 @@ namespace SIG_VETERINARIA.Repository.User
             return res;
         }
 
-        public async Task<ResultDto<UserListResponseDTO>> GetAll()
+        public async Task<ResultDto<UserListResponseDTO>> GetAll(UserListRequestDto request)
         {
             ResultDto<UserListResponseDTO> res = new ResultDto<UserListResponseDTO>();
             List<UserListResponseDTO> list = new List<UserListResponseDTO>();
             try
             {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@p_indice", request.index);
+                parameters.Add("@p_limit", request.limit);
+
                 using (var cn = new SqlConnection(_connectionString))
                 {
-                    list = (List<UserListResponseDTO>)await cn.QueryAsync<UserListResponseDTO>("SP_LIST_USERS", null, commandType: System.Data.CommandType.StoredProcedure);
+                    list = (List<UserListResponseDTO>)await cn.QueryAsync<UserListResponseDTO>("SP_LIST_USERS", parameters, commandType: System.Data.CommandType.StoredProcedure);
                 }
                 res.IsSuccess = list.Count > 0 ? true : false;
                 res.Message = list.Count > 0 ? "Información encontrada" : "No se encontro información";
                 res.Data = list.ToList();
+                res.Total = list[0].totalRegisters;
             }
             catch (Exception ex)
             {

@@ -6,7 +6,7 @@ namespace SIG_VETERINARIA.Abstractions.IRepository
 {
     public interface IUserRepository
     {
-        public Task<ResultDto<UserListResponseDTO>> GetAll();
+        public Task<ResultDto<UserListResponseDTO>> GetAll(UserListRequestDto request);
 
         public Task<ResultDto<int>> Create(UserCreateRequestDto request);
 
