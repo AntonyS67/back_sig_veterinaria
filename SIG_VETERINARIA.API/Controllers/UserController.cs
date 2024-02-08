@@ -46,7 +46,7 @@ namespace SIG_VETERINARIA.API.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpPost]
         [Route("delete")]
         public async Task<ActionResult> Delete(DeleteDto request)
         {
