@@ -1,6 +1,6 @@
-﻿namespace SIG_VETERINARIA.DTOs.User
+﻿namespace SIG_VETERINARIA.DTOs.Species
 {
-    public class UserListRequestDto
+    public class SpecieListRequestDto
     {
         public int index { get; set; }
         public int limit { get; set; } = 10;

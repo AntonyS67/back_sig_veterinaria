@@ -101,7 +101,8 @@ namespace SIG_VETERINARIA.Repository.User
                 res.IsSuccess = list.Count > 0 ? true : false;
                 res.Message = list.Count > 0 ? "Información encontrada" : "No se encontro información";
                 res.Data = list.ToList();
-                res.Total = list[0].totalRegisters;
+                res.Total = list.Count > 0 ? list[0].totalRegisters : 0;
+
             }
             catch (Exception ex)
             {

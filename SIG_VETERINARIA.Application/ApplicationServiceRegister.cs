@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SIG_VETERINARIA.Abstractions.IApplication;
+using SIG_VETERINARIA.Application.Specie;
 using SIG_VETERINARIA.Application.User;
 
 namespace SIG_VETERINARIA.Application
@@ -9,6 +10,7 @@ namespace SIG_VETERINARIA.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IUserApplication, UserApplication>();
+            services.AddScoped<ISpecieApplication, SpecieApplication>();
             return services;
         }
 
