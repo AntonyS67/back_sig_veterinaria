@@ -14,5 +14,9 @@ namespace SIG_VETERINARIA.DTOs.Clients
         public string? address { get; set; }
         public string? city { get; set; }
         public string? email { get; set; }
+        public string? uri_photo { get; set; }
+
+        public string? public_id { get; set; }
+        public string? signature { get; set; }
     }
 }

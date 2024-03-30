@@ -35,6 +35,8 @@ namespace SIG_VETERINARIA.Repository.Clients
                     parameters.Add("@p_address", request.address);
                     parameters.Add("@p_city", request.city);
                     parameters.Add("@p_email", request.email);
+                    parameters.Add("@p_public_id", request.public_id);
+                    parameters.Add("@p_signature", request.signature);
 
                     using (var lector = await cn.ExecuteReaderAsync("SP_CREATE_CLIENT", parameters, commandType: System.Data.CommandType.StoredProcedure))
                     {

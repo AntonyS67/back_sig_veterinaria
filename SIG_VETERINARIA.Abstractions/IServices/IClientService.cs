@@ -9,6 +9,6 @@ namespace SIG_VETERINARIA.Abstractions.IServices
         public Task<ResultDto<ClientListResponseDTO>> GetClients(ClientListRequestDTO request);
         public Task<ResultDto<int>> CreateClient(ClientCreateRequestDTO request);
         public Task<ResultDto<int>> DeleteClient(DeleteDto request);
-        public Task<string> SaveImage(IFormFile photo);
+        public Task<ClientResultUploadImageDTO> SaveImage(IFormFile photo);
     }
 }

@@ -24,7 +24,16 @@ namespace SIG_VETERINARIA.Services.Clients
 
         public async Task<ResultDto<int>> CreateClient(ClientCreateRequestDTO request)
         {
-            request.uri_photo = await this.SaveImage(request.photo);
+            if (request.photo != null)
+            {
+                var res = await this.SaveImage(request.photo);
+                if (res.isSuccess)
+                {
+                    request.uri_photo = res.uploadResult?.SecureUrl.ToString();
+                    request.signature = res.uploadResult?.Signature;
+                    request.public_id = res.uploadResult?.PublicId;
+                }
+            }
             return await _clientRepository.CreateClient(request);
         }
 
@@ -38,8 +47,9 @@ namespace SIG_VETERINARIA.Services.Clients
             return await _clientRepository.GetClients(request);
         }
 
-        public async Task<string> SaveImage(IFormFile photo)
+        public async Task<ClientResultUploadImageDTO> SaveImage(IFormFile photo)
         {
+            ClientResultUploadImageDTO result = new ClientResultUploadImageDTO();
             try
             {
                 Cloudinary cloudinary = new Cloudinary(_cloudinaryUri);
@@ -57,12 +67,15 @@ namespace SIG_VETERINARIA.Services.Clients
                 };
                 var uploadResult = cloudinary.Upload(uploadsParams);
                 System.IO.File.Delete(fileWithPath);
-                return uploadResult.SecureUri.ToString();
+                result.isSuccess = true;
+                result.uploadResult = uploadResult;
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                result.messageException = ex.Message;
+                result.isSuccess = false;
             }
+            return result;
         }
     }
 }
