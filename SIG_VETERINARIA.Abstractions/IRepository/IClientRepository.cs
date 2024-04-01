@@ -8,5 +8,6 @@ namespace SIG_VETERINARIA.Abstractions.IRepository
         public Task<ResultDto<ClientListResponseDTO>> GetClients(ClientListRequestDTO request);
         public Task<ResultDto<int>> CreateClient(ClientCreateRequestDTO request);
         public Task<ResultDto<int>> DeleteClient(DeleteDto request);
+        public Task<ResultDto<ClientDetailResponseDto>> GetClientDetail(DeleteDto request);
     }
 }

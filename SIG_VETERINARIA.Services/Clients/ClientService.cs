@@ -34,11 +34,14 @@ namespace SIG_VETERINARIA.Services.Clients
                     request.public_id = res.uploadResult?.PublicId;
                 }
             }
+
             return await _clientRepository.CreateClient(request);
         }
 
         public async Task<ResultDto<int>> DeleteClient(DeleteDto request)
         {
+            var client = await _clientRepository.GetClientDetail(request);
+            await this.DeleteImage(client.Item?.public_id);
             return await _clientRepository.DeleteClient(request);
         }
 
@@ -76,6 +79,21 @@ namespace SIG_VETERINARIA.Services.Clients
                 result.isSuccess = false;
             }
             return result;
+        }
+
+        public async Task<string> DeleteImage(string publicId)
+        {
+            try
+            {
+                Cloudinary cloudinary = new Cloudinary(_cloudinaryUri);
+                var deleteParams = new DeletionParams(publicId);
+                var result = await cloudinary.DestroyAsync(deleteParams);
+                return result.Result;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

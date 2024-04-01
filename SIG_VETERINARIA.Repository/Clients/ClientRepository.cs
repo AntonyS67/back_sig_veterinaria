@@ -87,6 +87,32 @@ namespace SIG_VETERINARIA.Repository.Clients
             return res;
         }
 
+        public async Task<ResultDto<ClientDetailResponseDto>> GetClientDetail(DeleteDto request)
+        {
+            ResultDto<ClientDetailResponseDto> res = new ResultDto<ClientDetailResponseDto>();
+            ClientDetailResponseDto item = new ClientDetailResponseDto();
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@p_id", request.id);
+
+                using (var cn = new SqlConnection(_connectionString))
+                {
+                    var query = await cn.QueryAsync<ClientDetailResponseDto>("SP_GET_CLIENT", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                    item = (ClientDetailResponseDto)query.FirstOrDefault();
+                    res.IsSuccess = query.Any() ? true : false;
+                    res.Message = query.Any() ? "Información encontrada" : "No se encontró información";
+                    res.Item = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.MessageException = ex.Message;
+                res.IsSuccess = false;
+            }
+            return res;
+        }
+
         public async Task<ResultDto<ClientListResponseDTO>> GetClients(ClientListRequestDTO request)
         {
             ResultDto<ClientListResponseDTO> result = new ResultDto<ClientListResponseDTO>();
