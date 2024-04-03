@@ -2,6 +2,7 @@
 using SIG_VETERINARIA.Abstractions.IApplication;
 using SIG_VETERINARIA.Application.Breed;
 using SIG_VETERINARIA.Application.Clients;
+using SIG_VETERINARIA.Application.Patients;
 using SIG_VETERINARIA.Application.Specie;
 using SIG_VETERINARIA.Application.User;
 
@@ -15,6 +16,7 @@ namespace SIG_VETERINARIA.Application
             services.AddScoped<ISpecieApplication, SpecieApplication>();
             services.AddScoped<IBreedApplication, BreedApplication>();
             services.AddScoped<IClientApplication, ClientApplication>();
+            services.AddScoped<IPatientApplication, PatientApplication>();
             return services;
         }
 
