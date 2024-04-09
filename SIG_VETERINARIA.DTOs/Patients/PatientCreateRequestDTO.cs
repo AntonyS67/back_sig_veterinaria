@@ -7,7 +7,7 @@ namespace SIG_VETERINARIA.DTOs.Patients
         public int id { get; set; }
         public string names { get; set; }
         public IFormFile? photo { get; set; }
-        public string birthday { get; set; }
+        public DateTime birthday { get; set; }
         public string age { get; set; }
         public string sex { get; set; }
         public string color { get; set; }
