@@ -9,6 +9,7 @@ using SIG_VETERINARIA.Repository.Exams;
 using SIG_VETERINARIA.Repository.Patients;
 using SIG_VETERINARIA.Repository.Products;
 using SIG_VETERINARIA.Repository.Species;
+using SIG_VETERINARIA.Repository.Tratamientos;
 using SIG_VETERINARIA.Repository.User;
 
 namespace SIG_VETERINARIA.Repository
@@ -27,6 +28,7 @@ namespace SIG_VETERINARIA.Repository
             services.AddScoped<IDiagnosticoRepository, DiagnosticoRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRespository, ProductRepository>();
+            services.AddScoped<ITratamientosRepository, TratamientosRepository>();
             return services;
         }
 
