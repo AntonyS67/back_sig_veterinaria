@@ -29,6 +29,7 @@ namespace SIG_VETERINARIA.Application
             services.AddScoped<ICategoryApplication, CategoryApplication>();
             services.AddScoped<IProductApplication, ProductApplication>();
             services.AddScoped<ITratamientoApplication, TratamientoApplication>();
+            services.AddScoped<IProductsTratamientoApplication, ProductsTratamientoApplication>();
             return services;
         }
 

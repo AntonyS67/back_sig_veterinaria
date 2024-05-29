@@ -10,10 +10,12 @@ namespace SIG_VETERINARIA.API.Controllers
     public class TratamientosController : ControllerBase
     {
         private readonly ITratamientoApplication _application;
+        private readonly IProductsTratamientoApplication _productsTratamientoApplication;
 
-        public TratamientosController(ITratamientoApplication application)
+        public TratamientosController(ITratamientoApplication application, IProductsTratamientoApplication productsTratamientoApplication)
         {
             _application = application;
+            _productsTratamientoApplication = productsTratamientoApplication;
         }
 
         [HttpPost]
@@ -38,6 +40,15 @@ namespace SIG_VETERINARIA.API.Controllers
             try
             {
                 var res = await this._application.CreateTratamiento(request);
+                //eliminar los productos del tratamiento
+                await this._productsTratamientoApplication.DeleteProductTratamiento(res.Item);
+                // se obtiene el id del tratamiento
+                request.products.ForEach(item =>
+                {
+                    item.tratamiento_id = res.Item;
+                });
+
+                await this._productsTratamientoApplication.CreateProductTratamiento(request.products);
                 return Ok(res);
             }
             catch (Exception ex)
@@ -53,6 +64,21 @@ namespace SIG_VETERINARIA.API.Controllers
             try
             {
                 var res = await this._application.DeleteTratamiento(request);
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("products/list")]
+        public async Task<ActionResult> ListProducts([FromBody] ProductsTratamientoListRequestDTO request)
+        {
+            try
+            {
+                var res = await this._productsTratamientoApplication.GetProductsTratamiento(request);
                 return Ok(res);
             }
             catch (Exception ex)

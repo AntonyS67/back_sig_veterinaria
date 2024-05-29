@@ -29,6 +29,7 @@ namespace SIG_VETERINARIA.Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRespository, ProductRepository>();
             services.AddScoped<ITratamientosRepository, TratamientosRepository>();
+            services.AddScoped<IProductsTratamiento, ProductTratamientoRepository>();
             return services;
         }
 
