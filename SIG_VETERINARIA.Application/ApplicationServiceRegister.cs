@@ -8,6 +8,7 @@ using SIG_VETERINARIA.Application.Diagnosticos;
 using SIG_VETERINARIA.Application.Exams;
 using SIG_VETERINARIA.Application.Patients;
 using SIG_VETERINARIA.Application.Products;
+using SIG_VETERINARIA.Application.Recetas;
 using SIG_VETERINARIA.Application.Specie;
 using SIG_VETERINARIA.Application.Tratamientos;
 using SIG_VETERINARIA.Application.User;
@@ -30,6 +31,7 @@ namespace SIG_VETERINARIA.Application
             services.AddScoped<IProductApplication, ProductApplication>();
             services.AddScoped<ITratamientoApplication, TratamientoApplication>();
             services.AddScoped<IProductsTratamientoApplication, ProductsTratamientoApplication>();
+            services.AddScoped<IRecetasApplication, RecetasApplication>();
             return services;
         }
 

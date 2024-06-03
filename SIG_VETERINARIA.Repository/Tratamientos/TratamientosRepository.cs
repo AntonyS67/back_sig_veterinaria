@@ -75,6 +75,31 @@ namespace SIG_VETERINARIA.Repository.Tratamientos
             return resultDto;
         }
 
+        public async Task<ResultDto<TratamientoDetailResponseDTO>> GetDetailTratamiento(int id)
+        {
+            ResultDto<TratamientoDetailResponseDTO> result = new ResultDto<TratamientoDetailResponseDTO>();
+            TratamientoDetailResponseDTO item = new TratamientoDetailResponseDTO();
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@p_id", id);
+                using (var cn = new SqlConnection(_connectionString))
+                {
+                    var query = await cn.QueryAsync<TratamientoDetailResponseDTO>("SP_DETAIL_TRATAMIENTO", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                    item = (TratamientoDetailResponseDTO)query.FirstOrDefault();
+                    result.IsSuccess = query.Any();
+                    result.Message = query.Any() ? "Informacion encontrada" : "No se encontro informacion";
+                    result.Item = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                result.MessageException = ex.Message;
+                result.IsSuccess = false;
+            }
+            return result;
+        }
+
         public async Task<ResultDto<TratamientosListResponseDTO>> ListTratamientos(TratamientosListRequestDTO request)
         {
             ResultDto<TratamientosListResponseDTO> res = new ResultDto<TratamientosListResponseDTO>();

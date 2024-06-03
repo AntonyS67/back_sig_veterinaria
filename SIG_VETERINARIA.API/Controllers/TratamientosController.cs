@@ -86,5 +86,22 @@ namespace SIG_VETERINARIA.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("detail")]
+        public async Task<ActionResult> DetailTratamiento([FromBody] ProductsTratamientoListRequestDTO request)
+        {
+            try
+            {
+                var res = await this._application.GetDetailTratamiento(request.tratamiento_id);
+                var products = await this._productsTratamientoApplication.GetProductsTratamiento(request);
+
+                return Ok(new { res, products });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

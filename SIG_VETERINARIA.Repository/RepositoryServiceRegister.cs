@@ -8,6 +8,7 @@ using SIG_VETERINARIA.Repository.Diagnosticos;
 using SIG_VETERINARIA.Repository.Exams;
 using SIG_VETERINARIA.Repository.Patients;
 using SIG_VETERINARIA.Repository.Products;
+using SIG_VETERINARIA.Repository.Recetas;
 using SIG_VETERINARIA.Repository.Species;
 using SIG_VETERINARIA.Repository.Tratamientos;
 using SIG_VETERINARIA.Repository.User;
@@ -30,6 +31,7 @@ namespace SIG_VETERINARIA.Repository
             services.AddScoped<IProductRespository, ProductRepository>();
             services.AddScoped<ITratamientosRepository, TratamientosRepository>();
             services.AddScoped<IProductsTratamiento, ProductTratamientoRepository>();
+            services.AddScoped<IRecetasRepository, RecetasRepository>();
             return services;
         }
 

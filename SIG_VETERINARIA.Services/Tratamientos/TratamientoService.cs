@@ -24,6 +24,11 @@ namespace SIG_VETERINARIA.Services.Tratamientos
             return await this._repository.DeleteTratamiento(request);
         }
 
+        public async Task<ResultDto<TratamientoDetailResponseDTO>> GetDetailTratamiento(int id)
+        {
+            return await _repository.GetDetailTratamiento(id);
+        }
+
         public async Task<ResultDto<TratamientosListResponseDTO>> ListTratamientos(TratamientosListRequestDTO request)
         {
             return await _repository.ListTratamientos(request);
