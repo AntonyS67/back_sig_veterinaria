@@ -24,6 +24,11 @@ namespace SIG_VETERINARIA.Services.Recetas
             return await this.recetasRepository.DeleteReceta(request);
         }
 
+        public async Task<ResultDto<RecetasListResponseDTO>> DetailReceta(DeleteDto request)
+        {
+            return await this.recetasRepository.DetailReceta(request);
+        }
+
         public async Task<ResultDto<RecetasListResponseDTO>> GetAllRecetas(RecetasListRequestDTO request)
         {
             return await this.recetasRepository.GetAllRecetas(request);

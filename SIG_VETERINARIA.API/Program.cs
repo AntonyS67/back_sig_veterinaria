@@ -1,7 +1,9 @@
+using QuestPDF.Infrastructure;
 using SIG_VETERINARIA.Application;
 using SIG_VETERINARIA.Repository;
 using SIG_VETERINARIA.Services;
 
+QuestPDF.Settings.License = LicenseType.Community;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

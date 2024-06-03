@@ -77,6 +77,31 @@ namespace SIG_VETERINARIA.Repository.Recetas
             return res;
         }
 
+        public async Task<ResultDto<RecetasListResponseDTO>> DetailReceta(DeleteDto request)
+        {
+            ResultDto<RecetasListResponseDTO> res = new ResultDto<RecetasListResponseDTO>();
+            RecetasListResponseDTO item = new RecetasListResponseDTO();
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@p_id", request.id);
+                using (var cn = new SqlConnection(_connectionString))
+                {
+                    var query = await cn.QueryAsync<RecetasListResponseDTO>("SP_DETAIL_RECETA", parameters, commandType: System.Data.CommandType.StoredProcedure);
+                    item = (RecetasListResponseDTO)query.FirstOrDefault();
+                    res.IsSuccess = query.Any();
+                    res.Message = query.Any() ? "Informacion encontrada" : "No se encontro informacion";
+                    res.Item = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                res.MessageException = ex.Message;
+                res.IsSuccess = false;
+            }
+            return res;
+        }
+
         public async Task<ResultDto<RecetasListResponseDTO>> GetAllRecetas(RecetasListRequestDTO request)
         {
             ResultDto<RecetasListResponseDTO> res = new ResultDto<RecetasListResponseDTO>();
@@ -104,5 +129,7 @@ namespace SIG_VETERINARIA.Repository.Recetas
             }
             return res;
         }
+
+
     }
 }
